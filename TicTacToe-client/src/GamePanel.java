@@ -136,26 +136,28 @@ public class GamePanel extends JPanel implements MouseListener, MouseMotionListe
     public void mouseClicked(MouseEvent e) {
         if (e.getButton() != MouseEvent.BUTTON1)
             return;
-        if (e.getX() < blockX[0] || e.getX() >= blockX[3] || e.getY() < blockY[0] || e.getY() >= blockY[3])
-            return;
-        int x = -Arrays.binarySearch(blockX, e.getX()) - 2;
-        int y = -Arrays.binarySearch(blockY, e.getY()) - 2;
-        if (x < 0 || y < 0)
-            return;
-        synchronized (outputLock) {
-            if (outputStream != null) {
-                try {
-                    outputStream.writeObject(x);
-                    outputStream.writeObject(y);
-                } catch (IOException error) {
-                    error.printStackTrace();
-                }
-            }
-        }
         if (!thread.isAlive()) {
             reset();
             thread = new Thread(this);
             thread.start();
+
+        } else {
+            if (e.getX() < blockX[0] || e.getX() >= blockX[3] || e.getY() < blockY[0] || e.getY() >= blockY[3])
+                return;
+            int x = -Arrays.binarySearch(blockX, e.getX()) - 2;
+            int y = -Arrays.binarySearch(blockY, e.getY()) - 2;
+            if (x < 0 || y < 0)
+                return;
+            synchronized (outputLock) {
+                if (outputStream != null) {
+                    try {
+                        outputStream.writeObject(x);
+                        outputStream.writeObject(y);
+                    } catch (IOException error) {
+                        error.printStackTrace();
+                    }
+                }
+            }
         }
         repaint();
     }
