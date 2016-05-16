@@ -50,6 +50,7 @@ public class GamePanel extends JPanel implements MouseListener, MouseMotionListe
     public void reset() {
         player = 0;
         map = new int[3][3];
+        message = "Welcome!";
         line = 0;
     }
 
