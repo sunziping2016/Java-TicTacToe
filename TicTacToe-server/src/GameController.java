@@ -20,7 +20,7 @@ public class GameController {
         private ObjectOutputStream outputStream;
         private final Object outputLock = new Object();
         private int player;
-        private Thread thread;
+        private Thread thread = new Thread(this);
 
         public PlayerHandler(Socket socket, int player) {
             this.socket = socket;
@@ -28,7 +28,6 @@ public class GameController {
             try {
                 this.outputStream = new ObjectOutputStream(socket.getOutputStream());
                 this.inputStream = new ObjectInputStream(socket.getInputStream());
-                thread = new Thread(this);
                 thread.start();
             } catch (IOException error) {
                 error.printStackTrace();

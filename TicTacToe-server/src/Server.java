@@ -33,7 +33,7 @@ public class Server {
             GameController gameController = new GameController();
             while (true) {
                 Socket clientSocket = serverSocket.accept();
-                //System.out.println("Accept new client from " + clientSocket.getRemoteSocketAddress() + ".");
+                System.out.println("Connection from " + clientSocket.getRemoteSocketAddress() + ".");
                 if (!gameController.needPLayer())
                     gameController = new GameController();
                 gameController.addPlayer(clientSocket);

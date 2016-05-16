@@ -208,10 +208,8 @@ public class GamePanel extends JPanel implements MouseListener, MouseMotionListe
             }
         });
         loginDialog.setVisible(true);
-        if (socket == null || !socket.isConnected()) {
-            close();
+        if (socket == null || !socket.isConnected())
             return;
-        }
         try {
             setTitle("Tic-Tac-Toe (Connected)");
             player = (int) inputStream.readObject();
